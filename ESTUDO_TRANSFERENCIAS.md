@@ -34,6 +34,18 @@ A alternativa entre os dois limites é essencial: ultrapassar meio salário mín
 
 O próximo passo é documentar a redação aplicável à data e sua implementação efetiva, e localizar dados que associem elegibilidade anterior, recebimento específico e consumo. Um corte só será usado depois de verificar que realmente determina o tratamento, que não há outras políticas simultâneas no mesmo limiar e que os dados possibilitam os testes previstos acima. Até lá, a hipótese causal permanece aberta.
 
+## Alternativa pública: painel por unidade da federação
+
+O [Portal da Transparência](https://portaldatransparencia.gov.br/download-de-dados/auxilio-emergencial) anuncia downloads abertos do Auxílio Emergencial, mas seu dicionário não ficou acessível nesta consulta. Não verificamos os arquivos, campos, datas, privacidade ou possibilidade de vínculo. Uma base que conecte elegibilidade anterior, pagamento específico e consumo familiar, assim como as autorizações necessárias para acessá-la, continua não confirmada; não se deve tentar identificar pessoas usando os dados publicados aqui.
+
+Como alternativa exploratória, a [Pesquisa Mensal de Comércio, tabela 3416](https://sidra.ibge.gov.br/tabela/3416), fornece índice de volume de vendas do varejo por unidade da federação para janeiro de 2019 a novembro de 2020. Usamos a série com ajuste sazonal, base 2014 = 100, encerrada em janeiro de 2022. O índice não representa todo o consumo familiar, pode incluir compradores que não receberam o benefício e está sujeito a revisões e a ajuste sazonal retrospectivo. Não é uma base em tempo real.
+
+Ligamos os dados da PNAD COVID por código de UF e mês, usando a resposta domiciliar D0051 e peso V1032. O painel contém 621 linhas (27 UFs por 23 meses), das quais 189 têm auxílio observado entre maio e novembro de 2020. Dados anteriores de auxílio permanecem nulos. A soma dos pesos estaduais reproduziu as estimativas nacionais em todos os sete meses dentro do erro numérico. Os percentuais estaduais são estimativas amostrais: o painel inclui os tamanhos de amostra e respostas ausentes, mas não calcula erros-padrão ou intervalos.
+
+Para o gráfico, dividimos cada índice estadual pelo índice do próprio estado em fevereiro de 2020 e multiplicamos por 100. A linha mostra a mediana não ponderada das 27 trajetórias e a faixa mostra os quartis 25 e 75, interpolados linearmente. A mediana é 78,19 em abril e 106,99 em novembro. Não é o índice nacional; a unidade mediana pode mudar a cada mês.
+
+**Decisão de identificação:** este painel não estabelece causalidade. A proporção de auxílio já é medida depois do começo da crise, pode responder à perda de renda e não identifica exclusivamente o programa federal. Estados também diferem em restrições sanitárias, estrutura econômica e exposição à pandemia. Comparar proporções ou ajustar uma regressão não identifica a resposta de vendas ao auxílio sem uma estratégia adicional e controles/condições críveis definidos antes da análise. Os dados anteriores do comércio permitem examinar tendências, mas por si só não provam tendências paralelas. Há apenas 27 unidades agregadas, e inferência, efeitos comuns, seleção e defasagens exigem tratamento cuidadoso. Mesmo uma estimativa regional válida não seria uma PMC individual.
+
 ## Critérios antes de simular políticas
 
 - Definir o contrafactual, os critérios de elegibilidade, a população e o horizonte antes da estimação.
@@ -49,8 +61,13 @@ python -m src.etl.pof
 MPLBACKEND=Agg python -m src.relatorio.grafico_pof
 python -m src.etl.pnad_covid
 MPLBACKEND=Agg python -m src.relatorio.grafico_pnad_covid
+python -m src.etl.comercio_regional
+python -m src.etl.painel_regional
+MPLBACKEND=Agg python -m src.relatorio.grafico_painel_regional
 ```
 
 As tabelas oficiais podem ser consultadas em [SIDRA 6715](https://sidra.ibge.gov.br/tabela/6715) e [SIDRA 6974](https://sidra.ibge.gov.br/tabela/6974). O coletor consulta a API de agregados do IBGE e produz `docs/pof-2017-2018.csv`; o gráfico é salvo em `docs/grafico-pof.png`. O arquivo HTML contém valores textuais que devem ser conferidos novamente se a fonte for revisada.
 
 O segundo coletor baixa sete arquivos mensais do IBGE em memória, sem gravar os microdados no repositório, e gera `docs/pnad-covid-auxilios.csv` e `docs/grafico-pnad-covid.png`. Se as fontes forem revisadas, a tabela e a narrativa HTML também precisam ser conferidas.
+
+O coletor de comércio gera `docs/comercio-estadual-2019-2020.csv`; o painel relê os sete arquivos da PNAD em memória e gera `docs/painel-regional-2019-2020.csv`. O último comando gera `docs/resumo-comercio-estadual.csv` e `docs/grafico-comercio-estadual.png`. Os números textuais da página não são atualizados automaticamente.

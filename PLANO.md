@@ -9,6 +9,7 @@ O objetivo é construir um modelo que possa **ganhar ou perder uma comparação 
 - **Microdados, calibração estrutural e comparação com Focus pendentes:** dependem de fontes e critérios de identificação, datas de divulgação, balanços corrigidos e protocolo de validação comparável.
 - **Primeira evidência distributiva:** tabelas agregadas da POF 2017–2018 mostram a composição do consumo por faixa familiar. O [protocolo de transferências](ESTUDO_TRANSFERENCIAS.md) separa esse resultado descritivo da futura identificação causal; microdados e uma regra de elegibilidade verificável ainda não foram obtidos.
 - **Viabilidade de uma avaliação:** microdados públicos da PNAD COVID-19 mostram alcance domiciliar declarado de auxílios em 2020, mas não consumo familiar. A lei original do auxílio federal tem critérios de renda alternativos e outros requisitos; ainda faltam a regra implementada em cada período e dados de elegibilidade anterior, tratamento e consumo comparáveis.
+- **Alternativa regional exploratória:** painel público de 27 UFs combina vendas do varejo em 2019–2020 e auxílios declarados de maio a novembro de 2020. É descritivo; exposição após o início da crise, falta de consumo familiar e confundimento impedem inferência causal direta. O Portal da Transparência anuncia dados de pagamento, mas seus campos e possibilidade de vínculo ainda não foram verificados.
 
 ## 1. Diagnóstico do protótipo
 

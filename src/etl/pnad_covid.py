@@ -13,7 +13,7 @@ URL = "https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amost
 COLUNAS = ["Ano", "UF", "UPA", "V1008", "V1013", "A001A", "V1032", "D0051"]
 
 
-def resumir_mes(arquivo_zip, mes):
+def ler_responsaveis(arquivo_zip, mes):
     with ZipFile(BytesIO(arquivo_zip)) as arquivo:
         nomes = [nome for nome in arquivo.namelist() if nome.lower().endswith(".csv")]
         if len(nomes) != 1:
@@ -31,6 +31,11 @@ def resumir_mes(arquivo_zip, mes):
         raise ValueError("Peso domiciliar ausente ou inválido.")
     if dados.filter(pl.col("D0051").is_not_null() & ~pl.col("D0051").is_in(["1", "2"])).height:
         raise ValueError("Resposta inesperada sobre auxílios emergenciais.")
+    return dados
+
+
+def resumir_mes(arquivo_zip, mes):
+    dados = ler_responsaveis(arquivo_zip, mes)
     conhecidos = dados.filter(pl.col("D0051").is_in(["1", "2"]))
     peso_conhecido = conhecidos["V1032"].sum()
     if not peso_conhecido:
