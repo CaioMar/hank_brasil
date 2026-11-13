@@ -7,6 +7,7 @@ O objetivo é construir um modelo que possa **ganhar ou perder uma comparação 
 - **Diagnóstico parcialmente concluído:** relatórios e auditorias mensais para [2015–2018](data/sgs/diagnostico.md) e [2023–2025](data/sgs_2023_2025/diagnostico.md), com erros, gráficos e decomposição da dívida simulada. As janelas usam Selic realizada, portanto não são testes fora da amostra.
 - **Contabilidade em andamento:** um [protótipo SFC separado](ESTUDO_SFC.md) fecha os fluxos agregados de uma economia fechada simplificada sem normalizar a riqueza. Ainda não há setores bancário e externo, limites de crédito nem balanços completos; o motor original continua com os problemas identificados na auditoria.
 - **Microdados, calibração estrutural e comparação com Focus pendentes:** dependem de fontes e critérios de identificação, datas de divulgação, balanços corrigidos e protocolo de validação comparável.
+- **Primeira evidência distributiva:** tabelas agregadas da POF 2017–2018 mostram a composição do consumo por faixa familiar. O [protocolo de transferências](ESTUDO_TRANSFERENCIAS.md) separa esse resultado descritivo da futura identificação causal; microdados e uma regra de elegibilidade verificável ainda não foram obtidos.
 
 ## 1. Diagnóstico do protótipo
 

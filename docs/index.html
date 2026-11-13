@@ -119,7 +119,7 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#inicio"><span class="mark">H</span> HANK Brasil</a>
-      <nav aria-label="Navegação principal"><a href="#comecar">Comece aqui</a><a href="#contas-publicas">Contas públicas</a><a href="#modelos">Modelos</a><a href="#hipoteses">Hipóteses</a><a href="#resultados">Resultados</a><a href="#contabilidade">Contabilidade</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
+      <nav aria-label="Navegação principal"><a href="#comecar">Comece aqui</a><a href="#contas-publicas">Contas públicas</a><a href="#modelos">Modelos</a><a href="#pof">Famílias</a><a href="#hipoteses">Hipóteses</a><a href="#resultados">Resultados</a><a href="#contabilidade">Contabilidade</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
     </div>
   </header>
   <main id="inicio">
@@ -187,6 +187,26 @@
       </div>
       <p class="example"><strong>Um exemplo simplificado:</strong> imagine duas famílias que recebem R$ 100 a mais. Uma gasta R$ 90 e outra R$ 20. A média esconde que o impacto inicial sobre o consumo depende de quem recebeu a renda. Os números são apenas ilustrativos, não uma estimativa do Brasil.</p>
       <p class="source-note">RANK e HANK são famílias de modelos, não rótulos para todas as posições econômicas. Modelos convencionais também podem incluir impostos que variam com a atividade e diferentes hipóteses fiscais; HANK não é, por si só, uma política heterodoxa. Referência: <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20160042">Kaplan, Moll e Violante, <em>Monetary Policy According to HANK</em></a>.</p>
+    </div></section>
+    <section id="pof"><div class="wrap">
+      <div class="eyebrow">Primeira evidência / POF 2017–2018</div>
+      <h2>O que cabe no orçamento das famílias?</h2>
+      <p class="concept-intro">Antes de simular uma transferência, olhamos para a Pesquisa de Orçamentos Familiares do IBGE. Ela revela diferenças na composição das despesas, mas não observa o que as mesmas famílias fariam se recebessem um benefício adicional.</p>
+      <div class="story"><h3>Uma diferença observada</h3><div><p>Na faixa familiar de até R$ 1.908, alimentação representava <strong>23,76%</strong> da despesa média de consumo; na faixa acima de R$ 23.850, representava <strong>11,47%</strong>. Habitação respondia por 42,20% e 34,37%, respectivamente.</p><p>As famílias da faixa mais alta também gastavam mais em reais nessas categorias. O gráfico compara a parcela do orçamento, não o valor absoluto nem uma reação a uma renda extra.</p></div></div>
+      <figure><div class="chart-scroll"><img src="grafico-pof.png" alt="Participação de alimentação e habitação na despesa média de consumo por sete faixas familiares da POF 2017–2018. Na faixa mais baixa, alimentação representa 23,76% e habitação 42,20%; na mais alta, 11,47% e 34,37%." width="1760" height="800"></div><figcaption>Brasil, médias mensais familiares estimadas pelo IBGE. Cada parcela é a despesa média da categoria dividida pela despesa média de consumo da faixa; não é a média das proporções individuais.</figcaption></figure>
+      <p class="source-note" id="descricao-pof">Faixas da POF por rendimento total e variação patrimonial mensal familiar; valores da época, sem atualização para preços atuais. Percentuais calculados sobre as despesas médias de consumo.</p>
+      <div class="data-table"><table aria-describedby="descricao-pof"><thead><tr><th scope="col">Faixa familiar</th><th scope="col">Alimentação / consumo</th><th scope="col">Habitação / consumo</th></tr></thead><tbody>
+        <tr><th scope="row">Até R$ 1.908</th><td>23,76%</td><td>42,20%</td></tr>
+        <tr><th scope="row">Mais de R$ 1.908 a R$ 2.862</th><td>21,28%</td><td>40,73%</td></tr>
+        <tr><th scope="row">Mais de R$ 2.862 a R$ 5.724</th><td>19,69%</td><td>37,35%</td></tr>
+        <tr><th scope="row">Mais de R$ 5.724 a R$ 9.540</th><td>16,64%</td><td>34,16%</td></tr>
+        <tr><th scope="row">Mais de R$ 9.540 a R$ 14.310</th><td>15,55%</td><td>34,85%</td></tr>
+        <tr><th scope="row">Mais de R$ 14.310 a R$ 23.850</th><td>13,65%</td><td>34,72%</td></tr>
+        <tr><th scope="row">Mais de R$ 23.850</th><td>11,47%</td><td>34,37%</td></tr>
+      </tbody></table></div>
+      <div class="insight"><p><strong>Composição não é propensão marginal a consumir.</strong> Esses dados não dizem quanto uma família gastaria de cada real adicional recebido. As faixas não são decis, e as médias incluem despesas e rendimentos não monetários; habitação inclui, por exemplo, componentes que não são contas pagas em dinheiro. Ainda não estimamos o efeito de transferências nem usamos esses dados para calibrar a PMC.</p></div>
+      <div class="story"><h3>O próximo contrafactual</h3><div><p>Queremos comparar o consumo após uma transferência com o que teria ocorrido sem ela. Uma possibilidade é estudar uma regra de elegibilidade com corte preexistente, comparando famílias próximas dos dois lados, desde que a regra e os dados existam e que outras diferenças não mudem justamente no corte.</p><p>Essa comparação exige dados de recebimento e consumo, testes das hipóteses e tratamento de incerteza. Uma estimativa próxima do corte não se aplica automaticamente a toda a população. Ainda não identificamos uma regra ou base vinculada que permita executar esse teste.</p></div></div>
+      <p class="source-note">Fonte: IBGE, <a href="https://sidra.ibge.gov.br/tabela/6715">tabela 6715</a> e <a href="https://sidra.ibge.gov.br/tabela/6974">tabela 6974</a>. A POF tem desenho amostral; usamos as estimativas agregadas publicadas pelo IBGE, sem reprocessar microdados nem calcular intervalos de confiança. <a href="pof-2017-2018.csv">Baixar dados</a> · <a href="https://github.com/CaioMar/hank_brasil/blob/main/ESTUDO_TRANSFERENCIAS.md">Ler protocolo e reprodução</a>.</p>
     </div></section>
     <section id="hipoteses"><div class="wrap">
       <div class="eyebrow">Hipóteses / Mapa de relações</div>
