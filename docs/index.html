@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Resultados e limites atuais do projeto HANK Brasil.">
+  <title>HANK Brasil | Resultados atuais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --ink: #172f29; --muted: #53665e; --green: #14675a; --rust: #a64431; --paper: #f5f7f4; --line: #d7e0da; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+    a { color: inherit; text-underline-offset: 4px; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: auto; }
+    header { border-bottom: 1px solid var(--line); background: #fff; }
+    .nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 700; text-decoration: none; }
+    .mark { width: 26px; height: 26px; display: grid; place-items: center; background: var(--green); color: white; font-size: 13px; }
+    nav { display: flex; flex-wrap: wrap; gap: 22px; color: var(--muted); font-size: 13px; font-weight: 600; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus-visible { color: var(--green); text-decoration: underline; }
+    .intro { padding: 66px 0 42px; display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 60px; align-items: end; }
+    .eyebrow { color: var(--green); text-transform: uppercase; font-weight: 700; font-size: 11px; letter-spacing: 0; }
+    h1, h2 { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; line-height: 1.1; letter-spacing: 0; }
+    h1 { font-size: 58px; margin: 12px 0 18px; }
+    .lead { max-width: 650px; color: var(--muted); font-size: 18px; margin: 0; }
+    .status { border-left: 3px solid #d88a45; padding-left: 18px; font-size: 13px; color: var(--muted); }
+    .status strong { display: block; color: var(--ink); font-size: 14px; margin-bottom: 5px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .metric { padding: 22px 24px 24px 0; }
+    .metric + .metric { padding-left: 24px; border-left: 1px solid var(--line); }
+    .metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .metric strong { display: block; font-size: 32px; line-height: 1.2; margin: 8px 0 4px; }
+    .metric small { color: var(--muted); font-size: 12px; }
+    .metric:last-child strong { color: var(--rust); }
+    section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+    h2 { font-size: 36px; margin: 8px 0 0; }
+    .section-heading p { max-width: 390px; color: var(--muted); font-size: 14px; margin: 0; }
+    figure { margin: 32px 0 0; }
+    figure img { width: 100%; height: auto; display: block; }
+    figcaption { color: var(--muted); font-size: 12px; margin-top: 10px; }
+    .insight { padding: 22px 24px; border-left: 3px solid var(--rust); background: #fff; margin-top: 26px; }
+    .insight p { margin: 0; max-width: 850px; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+    .columns p, .columns li { color: var(--muted); font-size: 15px; }
+    ul, ol { padding-left: 20px; }
+    li { margin-bottom: 10px; }
+    .next { background: #e6eee9; border-bottom: 0; }
+    .next ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; padding-left: 20px; margin: 28px 0 0; }
+    .next li { padding-left: 4px; color: var(--ink); font-size: 15px; }
+    footer { background: var(--ink); color: #d7e5dc; padding: 28px 0; font-size: 13px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 32px, 1120px); }
+      .nav { padding: 14px 0; align-items: flex-start; flex-direction: column; }
+      nav { gap: 16px; }
+      .intro, .columns { grid-template-columns: 1fr; gap: 28px; }
+      .intro { padding: 46px 0 32px; }
+      h1 { font-size: 44px; }
+      h2 { font-size: 30px; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric, .metric + .metric { padding: 18px 0; border-left: 0; }
+      .metric + .metric { border-top: 1px solid var(--line); }
+      section { padding: 46px 0; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 14px; }
+      .next ol { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#inicio"><span class="mark">H</span> HANK Brasil</a>
+      <nav aria-label="Navegação principal"><a href="#resultados">Resultados</a><a href="#metodo">Método</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
+    </div>
+  </header>
+  <main id="inicio">
+    <div class="wrap">
+      <div class="intro">
+        <div><div class="eyebrow">Pesquisa aberta · resultados preliminares</div><h1>HANK Brasil</h1><p class="lead">Um modelo computacional para investigar como distribuição de renda, juros e política fiscal se relacionam com a economia brasileira.</p></div>
+        <div class="status"><strong>Exercício histórico exploratório</strong>Dados do Banco Central e simulação condicional para 2015–2018. O modelo ainda não foi validado fora da amostra.</div>
+      </div>
+      <div class="metrics" aria-label="Resultados em dezembro de 2018">
+        <div class="metric"><span>Dívida observada / PIB</span><strong>75,27%</strong><small>Banco Central · dezembro de 2018</small></div>
+        <div class="metric"><span>Dívida simulada / PIB</span><strong>63,78%</strong><small>Modelo HANK Brasil</small></div>
+        <div class="metric"><span>Diferença</span><strong>−11,49 p.p.</strong><small>Simulada menos observada</small></div>
+      </div>
+    </div>
+    <section id="resultados"><div class="wrap">
+      <div class="section-heading"><div><div class="eyebrow">01 / Comparação histórica</div><h2>O que os dados mostram</h2></div><p>O primeiro mês fixa as condições iniciais. A comparação cobre os 47 meses seguintes, de fevereiro de 2015 a dezembro de 2018.</p></div>
+      <figure><img src="grafico-divida.png" alt="Gráfico de linhas da dívida bruta sobre PIB: a trajetória simulada fica abaixo da observada e termina em 63,78%, contra 75,27% em dezembro de 2018." width="1760" height="704"><figcaption>Fonte: SGS/BCB e simulação do projeto. Valores mensais, em porcentagem do PIB.</figcaption></figure>
+      <div class="insight"><p><strong>A principal conclusão é um limite do modelo.</strong> Nesta configuração, ele subestimou a dívida observada em dezembro de 2018. O erro médio absoluto nos 47 meses foi de 7,76 pontos percentuais; investigar suas causas vem antes de tirar conclusões sobre políticas.</p></div>
+    </div></section>
+    <section id="metodo"><div class="wrap columns">
+      <div><div class="eyebrow">02 / Abordagem</div><h2>O que foi feito</h2><p>O exercício inicializa o modelo com séries históricas do SGS para Selic, IPCA, dívida bruta, reservas internacionais e câmbio. A população é sintética e heterogênea, distribuída em dez grupos de renda.</p><p>A simulação de referência usa 100 mil agentes e a Selic efetivamente observada nos meses seguintes. Gastos, tributação adicional e uso de reservas não recebem choques nesse exercício.</p></div>
+      <div><div class="eyebrow">03 / Leitura responsável</div><h2>O que ainda não sabemos</h2><ul><li>A trajetória usa Selic futura realizada e dados sujeitos a revisões: não é uma previsão fora da amostra em tempo real.</li><li>A inflação anualizada instantânea do modelo não é idêntica ao IPCA acumulado em 12 meses.</li><li>As elasticidades e a distribuição dos agentes não foram estimadas com microdados brasileiros; os fluxos contábeis ainda precisam de auditoria.</li><li>O exercício não estabelece causalidade nem demonstra superioridade sobre o Focus ou outros modelos.</li></ul></div>
+    </div></section>
+    <section class="next" id="proximos-passos"><div class="wrap"><div class="eyebrow">04 / Agenda de pesquisa</div><h2>Próximos passos</h2><ol><li><strong>Auditar as contas.</strong><br>Examinar fluxos, balanços e os fatores associados ao erro da dívida.</li><li><strong>Calibrar com dados reais.</strong><br>Integrar microdados do IBGE e explicitar incertezas e hipóteses.</li><li><strong>Testar previsões.</strong><br>Comparar fora da amostra com o Focus e referências simples, em horizontes equivalentes.</li></ol></div></section>
+  </main>
+  <footer><div class="wrap"><span>HANK Brasil · pesquisa em desenvolvimento</span><span><a href="https://www.bcb.gov.br/estatisticas/sgs">Banco Central / SGS</a> &nbsp;·&nbsp; <a href="https://github.com/CaioMar/hank_brasil">Código e metodologia</a></span></div></footer>
+</body>
+</html>

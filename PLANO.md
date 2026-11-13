@@ -1,0 +1,45 @@
+# Plano para tornar o modelo mais convincente
+
+O objetivo é construir um modelo que possa **ganhar ou perder uma comparação justa**, não apenas confirmar uma tese. O trabalho está organizado em cinco etapas, com resultados verificáveis em cada uma.
+
+## 1. Diagnóstico do protótipo
+
+- Gerar um relatório do exercício 2015–2018 com gráficos, erros mensais e decomposição da dívida entre juros, resultado primário e crescimento nominal.
+- Auditar os fluxos entre famílias e governo, incluindo impostos, transferências e juros. Identificar os ajustes que hoje impedem o fechamento contábil.
+- Registrar hipóteses, unidades e limitações, distinguindo valores observados de parâmetros arbitrados.
+
+**Critério de saída:** qualquer resultado pode ser reproduzido e suas diferenças contábeis estão medidas e explicadas.
+
+## 2. Dados e microeconomia
+
+- Organizar séries históricas de atividade, preços, juros, contas públicas e câmbio, com fonte, frequência, revisões e datas de divulgação.
+- Incorporar microdados do IBGE com pesos amostrais e documentação das transformações.
+- Estimar a heterogeneidade de renda e consumo sem confundir consumo observado com PMC: a resposta a uma renda adicional exige identificação específica ou hipóteses explícitas.
+
+**Critério de saída:** conjuntos de dados versionados e calibrações reproduzíveis, com incertezas documentadas.
+
+## 3. Modelo e calibração
+
+- Corrigir os problemas contábeis identificados antes de ajustar parâmetros; manter o núcleo vetorizado e diferenciável.
+- Calibrar apenas parâmetros identificáveis pelos dados disponíveis. Para os demais, usar faixas explícitas e análise de sensibilidade.
+- Testar cenários de juros, gastos e tributação, incluindo hipóteses alternativas para câmbio e reservas.
+
+**Critério de saída:** balanços fecham dentro de tolerância definida e os resultados não dependem de uma única escolha arbitrária de parâmetros.
+
+## 4. Validação justa
+
+- Separar períodos de calibração e teste; usar apenas informações disponíveis na data de cada previsão.
+- Comparar horizontes e variáveis equivalentes com o Focus e com referências simples, como a última observação disponível.
+- Reportar erros médios, viés, incerteza e desempenho por período. Usar Diebold–Mariano quando houver observações suficientes e suas condições forem adequadas.
+
+**Critério de saída:** uma tabela reproduzível mostra onde o modelo melhora, empata ou piora em relação às referências.
+
+## 5. Conclusões públicas
+
+- Apresentar multiplicadores, trajetórias da dívida e efeitos distributivos como **estimativas condicionais**, com intervalos e premissas.
+- Separar resultados empíricos, cenários hipotéticos e posições normativas.
+- Publicar também os testes que contrariem a hipótese inicial.
+
+## Primeira entrega
+
+Produzir o **relatório diagnóstico e a auditoria contábil de 2015–2018**. Eles mostram o que precisa ser corrigido antes de investir em calibração mais sofisticada.
