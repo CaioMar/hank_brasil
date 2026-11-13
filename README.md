@@ -25,6 +25,7 @@ Os valores textuais da página descrevem a execução de 2015–2018 com 100 mil
 
 ```bash
 python -m src.etl.sgs --inicio 2015-01 --fim 2018-12 --agentes 100000 --saida data/sgs
+MPLBACKEND=Agg python -m src.relatorio.diagnostico --dados data/sgs --agentes 100000 --saida data/sgs
 python -m unittest discover -s tests
 ```
 
@@ -33,3 +34,5 @@ O módulo consulta a API pública do SGS por ano. Usa a última observação de 
 O primeiro mês fixa o estado inicial: PIB real = 100, dívida e riqueza financeira agregada iguais à dívida/PIB, Selic em fração anual, IPCA acumulado em 12 meses em fração, câmbio em R$/US$ e reservas em US$ bilhões. Na ausência de série para o custo efetivo legado, assume-se a Selic inicial para ele; a referência cambial inicial também é a Selic inicial. As demais elasticidades, distribuição sintética, participação de LFT de 55% e política fiscal inicial continuam sendo hipóteses do modelo, não parâmetros estimados pelo SGS.
 
 A simulação começa no mês seguinte e usa a trajetória histórica de Selic, sem choques de gastos, impostos ou uso de reservas. O resultado compara a dívida/PIB, a inflação anualizada instantânea do modelo e o câmbio com a dívida observada, IPCA acumulado em 12 meses e PTAX. Essas medidas de inflação não são idênticas. Não se trata de previsão fora da amostra: usa Selic futura realizada e dados atuais do SGS, sujeitos a revisões. Observações mensais são associadas ao mês de referência, mas suas datas de divulgação não são verificadas; não há garantia de disponibilidade em tempo real no mês inicial. A comparação é exploratória, não estima elasticidades nem valida causalidade ou consistência fluxo-estoque do motor.
+
+O diagnóstico reproduz a simulação salva, verifica parâmetros e número de agentes, e gera relatório, gráficos e auditoria mensal. A auditoria evidencia ajustes artificiais de riqueza e fluxos sem contrapartida explícita: o motor atual **não demonstra consistência fluxo-estoque**.

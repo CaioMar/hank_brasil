@@ -9,6 +9,7 @@ import jax.numpy as jnp
 import polars as pl
 
 from src.etl.sgs import baixar_serie, calibrar_inicial, preparar_historico, simular_historico
+from src.relatorio.diagnostico import calcular_diagnostico, gerar_relatorio
 from simulacao_hank_brasil import criar_simulador_jax
 
 
@@ -60,6 +61,31 @@ class TesteSGS(unittest.TestCase):
         resultado = simular_historico(dados, calibrar_inicial(dados), n_agentes=100)
         self.assertEqual(resultado["mes"].to_list(), [date(2024, 2, 1), date(2024, 3, 1)])
         self.assertTrue(bool(jnp.isfinite(jnp.asarray(resultado["divida_pib_simulada"].to_numpy())).all()))
+
+    def test_auditoria_expoe_ajustes_e_conserva_trajetoria(self):
+        dados = preparar_historico(self.dados(), date(2024, 1, 1), date(2024, 3, 1))
+        parametros = calibrar_inicial(dados)
+        normal = simular_historico(dados, parametros, n_agentes=100)
+        auditado = simular_historico(dados, parametros, n_agentes=100, auditoria=True)
+        for comum, linha in zip(normal["divida_pib_simulada"], auditado.iter_rows(named=True)):
+            self.assertAlmostEqual(comum, linha["divida_pib_simulada"], places=5)
+            divida = linha["divida_anterior"] + (linha["juros_nominais_anualizados"] - linha["primario_nominal_anualizado"]) / 12
+            self.assertAlmostEqual(linha["divida_nova"], divida, places=4)
+            riqueza = (linha["riqueza_anterior"] + linha["poupanca_mensal"]
+                       + linha["ajuste_piso_riqueza"] + linha["ajuste_normalizacao_riqueza"])
+            self.assertAlmostEqual(linha["riqueza_nova"], riqueza, places=4)
+
+        diagnostico = calcular_diagnostico(auditado)
+        componentes = diagnostico.select(
+            pl.sum("contribuicao_juros_pp"), pl.sum("contribuicao_primario_pp"),
+            pl.sum("contribuicao_pib_nominal_pp"),
+        ).row(0)
+        variacao = diagnostico["divida_pib_simulada"][-1] - parametros["divida_inicial"]
+        self.assertAlmostEqual(sum(componentes), variacao, places=4)
+        relatorio = gerar_relatorio(diagnostico, parametros, 100)
+        self.assertIn("não é uma previsão em tempo real", relatorio)
+        self.assertIn("não prova consistência fluxo-estoque", relatorio)
+        self.assertIn("--dados outra-janela", gerar_relatorio(diagnostico, parametros, 100, "outra-janela"))
 
     def test_transferencias_nao_dependem_do_numero_de_agentes_e_sao_diferenciaveis(self):
         def simular_quantidade(quantidade):

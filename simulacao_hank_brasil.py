@@ -62,7 +62,7 @@ def gerar_populacao_agentes(n_agentes: int = 1_000_000, seed: int = 42, divida_i
 # ==============================================================================
 # 2. MOTOR DE SIMULAÇÃO HANK / ABM VETORIZADO EM JAX (48 MESES)
 # ==============================================================================
-def criar_simulador_jax(decil, renda_base, pmc, riqueza_base, parametros=None):
+def criar_simulador_jax(decil, renda_base, pmc, riqueza_base, parametros=None, auditoria=False):
     mask_base = (decil <= 5).astype(jnp.float32)   # 50% mais pobres (alta PMC)
     mask_topo = (decil == 10).astype(jnp.float32)  # 10% mais ricos (detentores de títulos)
 
@@ -186,6 +186,17 @@ def criar_simulador_jax(decil, renda_base, pmc, riqueza_base, parametros=None):
                 cambio_t,
                 razao_desigualdade,
             )
+            if auditoria:
+                metricas += (
+                    divida, divida_nova, pib_nom_t, juros_divida, resultado_primario,
+                    jnp.sum(riqueza), jnp.sum(poupanca_indiv) * dt,
+                    jnp.sum(riqueza_bruta_nova) - jnp.sum(riqueza + poupanca_indiv * dt),
+                    jnp.sum(riqueza_nova) - jnp.sum(riqueza_bruta_nova),
+                    jnp.sum(riqueza_nova), jnp.sum(juros_recebidos),
+                    TAU_BASE * jnp.sum(renda_trab_nom), arrecadacao_total,
+                    G_primario_nom, jnp.sum(transf_base), arrecadacao_topo,
+                    isencoes_t * pib_nom_t,
+                )
             return novo_carry, metricas
 
         estado_inicial = (riqueza_base, DIVIDA_0, 1.0, 100.0, R_LEGADO_0, CAMBIO_0)

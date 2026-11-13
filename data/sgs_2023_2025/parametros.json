@@ -1,0 +1,10 @@
+{
+  "selic_inicial": 0.1375,
+  "divida_inicial": 71.38,
+  "cambio_inicial": 5.0993,
+  "inflacao_inicial": 0.05774320292414625,
+  "reservas_iniciais": 331.122,
+  "juros_legados_iniciais": 0.1375,
+  "juros_efetivos_iniciais": 0.1375,
+  "selic_referencia_cambio": 0.1375
+}

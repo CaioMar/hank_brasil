@@ -118,7 +118,7 @@ def calibrar_inicial(historico):
     }
 
 
-def simular_historico(historico, parametros, n_agentes=100_000):
+def simular_historico(historico, parametros, n_agentes=100_000, auditoria=False):
     import jax.numpy as jnp
     from simulacao_hank_brasil import criar_simulador_jax, gerar_populacao_agentes
 
@@ -128,12 +128,19 @@ def simular_historico(historico, parametros, n_agentes=100_000):
     if observacoes.is_empty():
         raise ValueError("O backtest requer pelo menos dois meses.")
     agentes = gerar_populacao_agentes(n_agentes, divida_inicial=parametros["divida_inicial"])
-    simular = criar_simulador_jax(*agentes, parametros=parametros)
+    simular = criar_simulador_jax(*agentes, parametros=parametros, auditoria=auditoria)
     selic = jnp.asarray(observacoes["selic"].to_numpy() / 100)
     zeros = jnp.zeros_like(selic)
     resultados = simular(selic, zeros, zeros, zeros, uso_reservas_bc=0.0)
     nomes = ("pib_real_simulado", "divida_pib_simulada", "resultado_primario_simulado",
              "juros_pib_simulados", "inflacao_anual_simulada", "cambio_simulado", "desigualdade_simulada")
+    if auditoria:
+        nomes += ("divida_anterior", "divida_nova", "pib_nominal", "juros_nominais_anualizados",
+                  "primario_nominal_anualizado", "riqueza_anterior", "poupanca_mensal",
+                  "ajuste_piso_riqueza", "ajuste_normalizacao_riqueza", "riqueza_nova",
+                  "juros_familias_anualizados", "imposto_trabalho_anualizado", "arrecadacao_anualizada",
+                  "gasto_publico_anualizado", "transferencias_anualizadas", "imposto_topo_anualizado",
+                  "isencoes_anualizadas")
     return observacoes.with_columns([pl.Series(nome, valor.tolist()) for nome, valor in zip(nomes, resultados)])
 
 

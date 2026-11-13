@@ -47,6 +47,24 @@
     .insight p { margin: 0; max-width: 850px; }
     .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
     .columns p, .columns li { color: var(--muted); font-size: 15px; }
+    .concept-intro { max-width: 760px; color: var(--muted); font-size: 16px; }
+    .comparison { margin-top: 32px; border-top: 1px solid var(--line); }
+    .comparison-row { display: grid; grid-template-columns: 170px 1fr 1fr; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .comparison-row h3, .comparison-row p { margin: 0; font-size: 14px; }
+    .comparison-row h3 { color: var(--ink); }
+    .comparison-row p { color: var(--muted); }
+    .comparison-row strong { display: block; color: var(--ink); margin-bottom: 6px; }
+    .example { max-width: 850px; padding: 20px 0 0; color: var(--muted); }
+    .example strong { color: var(--ink); }
+    .causal-paths { margin-top: 30px; border-top: 1px solid var(--line); }
+    .causal-path { padding: 24px 0; border-bottom: 1px solid var(--line); }
+    .causal-path h3 { margin: 0 0 14px; font-size: 15px; }
+    .causal-path p { margin: 14px 0 0; color: var(--muted); font-size: 14px; max-width: 850px; }
+    .flow { list-style: none; display: flex; padding: 0; margin: 0; gap: 0; }
+    .flow li { display: flex; align-items: center; flex: 1 1 0; min-width: 0; margin: 0; color: var(--ink); font-size: 13px; font-weight: 600; }
+    .flow li span { display: flex; align-items: center; flex: 1; min-height: 65px; padding: 12px; background: #e6eee9; border-top: 2px solid var(--green); }
+    .flow li:not(:last-child)::after { content: '→'; flex: 0 0 26px; color: var(--green); text-align: center; font-size: 18px; }
+    .source-note { color: var(--muted); font-size: 13px; margin-top: 24px; }
     ul, ol { padding-left: 20px; }
     li { margin-bottom: 10px; }
     .next { background: #e6eee9; border-bottom: 0; }
@@ -69,6 +87,11 @@
       .section-heading { display: block; }
       .section-heading p { margin-top: 14px; }
       .next ol { grid-template-columns: 1fr; gap: 8px; }
+      .comparison-row { grid-template-columns: 1fr; gap: 12px; }
+      .flow { flex-direction: column; }
+      .flow li { flex-direction: column; align-items: stretch; }
+      .flow li span { min-height: 0; }
+      .flow li:not(:last-child)::after { content: '↓'; flex: 0 0 auto; line-height: 26px; }
     }
   </style>
 </head>
@@ -76,7 +99,7 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#inicio"><span class="mark">H</span> HANK Brasil</a>
-      <nav aria-label="Navegação principal"><a href="#resultados">Resultados</a><a href="#metodo">Método</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
+      <nav aria-label="Navegação principal"><a href="#modelos">Modelos</a><a href="#hipoteses">Hipóteses</a><a href="#resultados">Resultados</a><a href="#metodo">Método</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
     </div>
   </header>
   <main id="inicio">
@@ -91,14 +114,40 @@
         <div class="metric"><span>Diferença</span><strong>−11,49 p.p.</strong><small>Simulada menos observada</small></div>
       </div>
     </div>
+    <section id="modelos"><div class="wrap">
+      <div class="eyebrow">Conceitos / A economia por trás do modelo</div>
+      <h2>Uma família média ou muitas famílias?</h2>
+      <p class="concept-intro">Um modelo econômico é uma simplificação: ele escolhe quais diferenças entre pessoas e quais relações da economia serão representadas. Essa escolha muda as perguntas que ele consegue responder.</p>
+      <div class="comparison">
+        <div class="comparison-row"><h3>O ponto de partida</h3><p><strong>RANK · agente representativo</strong>Um modelo novo-keynesiano com uma família representativa resume as decisões das famílias como se fossem as de uma só família típica.</p><p><strong>HANK · agentes heterogêneos</strong>Um modelo novo-keynesiano com famílias diferentes considera, por exemplo, diferenças de renda, patrimônio e acesso a crédito.</p></div>
+        <div class="comparison-row"><h3>Quando chega uma renda extra</h3><p><strong>O risco da média</strong>O modelo pode representar bem uma resposta agregada, mas não mostra diretamente quem recebeu a renda nem como cada grupo reagiu.</p><p><strong>O que a distribuição permite ver</strong>Famílias com pouca reserva podem gastar uma parcela maior da renda adicional; outras podem poupar mais. A resposta agregada depende de quem recebe.</p></div>
+        <div class="comparison-row"><h3>O cuidado necessário</h3><p><strong>Simplicidade tem valor</strong>RANK é útil para estudar mecanismos agregados. A hipótese representativa, porém, pode esconder diferenças importantes em análises distributivas.</p><p><strong>Mais detalhe não é prova</strong>HANK pode ser mais adequado para essas perguntas, mas exige dados e hipóteses adicionais. Não é automaticamente mais preciso nem demonstra um resultado por construção.</p></div>
+      </div>
+      <p class="example"><strong>Um exemplo simplificado:</strong> imagine duas famílias que recebem R$ 100 a mais. Uma gasta R$ 90 e outra R$ 20. A média esconde que o impacto inicial sobre o consumo depende de quem recebeu a renda. Os números são apenas ilustrativos, não uma estimativa do Brasil.</p>
+      <p class="source-note">RANK e HANK são famílias de modelos, não rótulos para todas as posições econômicas. Modelos convencionais também podem incluir impostos que variam com a atividade e diferentes hipóteses fiscais; HANK não é, por si só, uma política heterodoxa. Referência: <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20160042">Kaplan, Moll e Violante, <em>Monetary Policy According to HANK</em></a>.</p>
+    </div></section>
+    <section id="hipoteses"><div class="wrap">
+      <div class="eyebrow">Hipóteses / Mapa de relações</div>
+      <h2>Como os efeitos podem se propagar</h2>
+      <p class="concept-intro">Este mapa causal simplificado, ou DAG, mostra caminhos que queremos testar. As setas indicam possíveis influências, não garantem que o efeito seja positivo ou grande. Cada caminho representa uma sequência no tempo; a economia também tem retroalimentações entre períodos.</p>
+      <div class="causal-paths">
+        <div class="causal-path"><h3>RANK · um caminho agregado simplificado</h3><ol class="flow" aria-label="Caminho agregado ilustrativo em um modelo com agente representativo"><li><span>Política pública</span></li><li><span>Renda da família representativa</span></li><li><span>Consumo agregado</span></li><li><span>Atividade e PIB</span></li><li><span>Arrecadação</span></li><li><span>Resultado primário e dívida / PIB</span></li></ol><p>Neste exemplo, a reação é resumida por uma família típica. O ponto cego possível é não distinguir os efeitos sobre grupos que recebem ou gastam de formas diferentes. A arrecadação endógena também pode existir em modelos RANK.</p></div>
+        <div class="causal-path"><h3>HANK · renda na base e atividade</h3><ol class="flow" aria-label="Caminho hipotético da renda até a dívida"><li><span>Transferência à base</span></li><li><span>Renda disponível</span></li><li><span>Consumo</span></li><li><span>Atividade e PIB</span></li><li><span>Arrecadação</span></li><li><span>Resultado primário e dívida / PIB</span></li></ol><p>Mais renda pode estimular o consumo e a atividade, elevando a arrecadação. A força desse caminho depende de preços, capacidade produtiva, importações e de quem recebe a renda.</p></div>
+        <div class="causal-path"><h3>O custo direto também conta</h3><ol class="flow" aria-label="Caminho hipotético do gasto público até a dívida"><li><span>Transferência à base</span></li><li><span>Despesa pública primária</span></li><li><span>Resultado primário</span></li><li><span>Dívida / PIB</span></li></ol><p>O gasto também aumenta a despesa pública. A receita adicional e o crescimento do PIB podem compensar parte desse custo, mas o saldo não é garantido.</p></div>
+        <div class="causal-path"><h3>Juros e dívida</h3><ol class="flow" aria-label="Caminho hipotético da Selic até a dívida"><li><span>Taxa Selic</span></li><li><span>Custo dos títulos públicos</span></li><li><span>Juros pagos pelo governo</span></li><li><span>Dívida / PIB</span></li></ol><p>Uma mudança de juros pode alterar o serviço da dívida, com velocidades diferentes conforme os títulos. A dívida / PIB também depende do crescimento, da inflação e do resultado primário.</p></div>
+        <div class="causal-path"><h3>Câmbio e preços</h3><ol class="flow" aria-label="Caminho hipotético dos juros até a inflação"><li><span>Taxa Selic</span></li><li><span>Fluxos financeiros e câmbio</span></li><li><span>Preços de bens importados</span></li><li><span>Inflação e atividade</span></li></ol><p>O câmbio responde também ao cenário externo e às expectativas. Reservas podem ajudar a lidar com volatilidade, mas não eliminam o risco cambial.</p></div>
+      </div>
+      <p class="source-note">Os caminhos são hipóteses de pesquisa, não conclusões causais. O protótipo ainda não fecha integralmente os fluxos entre os setores e não foi calibrado com microdados brasileiros.</p>
+    </div></section>
     <section id="resultados"><div class="wrap">
       <div class="section-heading"><div><div class="eyebrow">01 / Comparação histórica</div><h2>O que os dados mostram</h2></div><p>O primeiro mês fixa as condições iniciais. A comparação cobre os 47 meses seguintes, de fevereiro de 2015 a dezembro de 2018.</p></div>
       <figure><img src="grafico-divida.png" alt="Gráfico de linhas da dívida bruta sobre PIB: a trajetória simulada fica abaixo da observada e termina em 63,78%, contra 75,27% em dezembro de 2018." width="1760" height="704"><figcaption>Fonte: SGS/BCB e simulação do projeto. Valores mensais, em porcentagem do PIB.</figcaption></figure>
       <div class="insight"><p><strong>A principal conclusão é um limite do modelo.</strong> Nesta configuração, ele subestimou a dívida observada em dezembro de 2018. O erro médio absoluto nos 47 meses foi de 7,76 pontos percentuais; investigar suas causas vem antes de tirar conclusões sobre políticas.</p></div>
+      <div class="insight"><p><strong>Outra janela, outro sinal.</strong> Em dezembro de 2025, a dívida simulada foi de 83,05% do PIB, contra 78,64% observados. Ambas as comparações são condicionais à trajetória realizada da Selic, não testes de previsão fora da amostra.</p></div>
     </div></section>
     <section id="metodo"><div class="wrap columns">
       <div><div class="eyebrow">02 / Abordagem</div><h2>O que foi feito</h2><p>O exercício inicializa o modelo com séries históricas do SGS para Selic, IPCA, dívida bruta, reservas internacionais e câmbio. A população é sintética e heterogênea, distribuída em dez grupos de renda.</p><p>A simulação de referência usa 100 mil agentes e a Selic efetivamente observada nos meses seguintes. Gastos, tributação adicional e uso de reservas não recebem choques nesse exercício.</p></div>
-      <div><div class="eyebrow">03 / Leitura responsável</div><h2>O que ainda não sabemos</h2><ul><li>A trajetória usa Selic futura realizada e dados sujeitos a revisões: não é uma previsão fora da amostra em tempo real.</li><li>A inflação anualizada instantânea do modelo não é idêntica ao IPCA acumulado em 12 meses.</li><li>As elasticidades e a distribuição dos agentes não foram estimadas com microdados brasileiros; os fluxos contábeis ainda precisam de auditoria.</li><li>O exercício não estabelece causalidade nem demonstra superioridade sobre o Focus ou outros modelos.</li></ul></div>
+      <div><div class="eyebrow">03 / Leitura responsável</div><h2>O que ainda não sabemos</h2><ul><li>A trajetória usa Selic futura realizada e dados sujeitos a revisões: não é uma previsão fora da amostra em tempo real.</li><li>A inflação anualizada instantânea do modelo não é idêntica ao IPCA acumulado em 12 meses.</li><li>A auditoria encontrou ajustes artificiais na riqueza e fluxos sem contrapartida explícita. O modelo ainda não demonstra consistência fluxo-estoque.</li><li>As elasticidades e a distribuição dos agentes não foram estimadas com microdados brasileiros.</li><li>O exercício não estabelece causalidade nem demonstra superioridade sobre o Focus ou outros modelos.</li></ul></div>
     </div></section>
     <section class="next" id="proximos-passos"><div class="wrap"><div class="eyebrow">04 / Agenda de pesquisa</div><h2>Próximos passos</h2><ol><li><strong>Auditar as contas.</strong><br>Examinar fluxos, balanços e os fatores associados ao erro da dívida.</li><li><strong>Calibrar com dados reais.</strong><br>Integrar microdados do IBGE e explicitar incertezas e hipóteses.</li><li><strong>Testar previsões.</strong><br>Comparar fora da amostra com o Focus e referências simples, em horizontes equivalentes.</li></ol></div></section>
   </main>
