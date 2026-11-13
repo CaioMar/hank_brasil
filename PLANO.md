@@ -5,7 +5,7 @@ O objetivo é construir um modelo que possa **ganhar ou perder uma comparação 
 ## Progresso
 
 - **Diagnóstico parcialmente concluído:** relatórios e auditorias mensais para [2015–2018](data/sgs/diagnostico.md) e [2023–2025](data/sgs_2023_2025/diagnostico.md), com erros, gráficos e decomposição da dívida simulada. As janelas usam Selic realizada, portanto não são testes fora da amostra.
-- **Contabilidade pendente:** foram identificados ajustes artificiais de riqueza e fluxos sem contrapartida setorial explícita. A auditoria mede esses problemas, mas não os corrige nem demonstra fechamento completo.
+- **Contabilidade em andamento:** um [protótipo SFC separado](ESTUDO_SFC.md) fecha os fluxos agregados de uma economia fechada simplificada sem normalizar a riqueza. Ainda não há setores bancário e externo, limites de crédito nem balanços completos; o motor original continua com os problemas identificados na auditoria.
 - **Microdados, calibração estrutural e comparação com Focus pendentes:** dependem de fontes e critérios de identificação, datas de divulgação, balanços corrigidos e protocolo de validação comparável.
 
 ## 1. Diagnóstico do protótipo

@@ -36,3 +36,7 @@ O primeiro mês fixa o estado inicial: PIB real = 100, dívida e riqueza finance
 A simulação começa no mês seguinte e usa a trajetória histórica de Selic, sem choques de gastos, impostos ou uso de reservas. O resultado compara a dívida/PIB, a inflação anualizada instantânea do modelo e o câmbio com a dívida observada, IPCA acumulado em 12 meses e PTAX. Essas medidas de inflação não são idênticas. Não se trata de previsão fora da amostra: usa Selic futura realizada e dados atuais do SGS, sujeitos a revisões. Observações mensais são associadas ao mês de referência, mas suas datas de divulgação não são verificadas; não há garantia de disponibilidade em tempo real no mês inicial. A comparação é exploratória, não estima elasticidades nem valida causalidade ou consistência fluxo-estoque do motor.
 
 O diagnóstico reproduz a simulação salva, verifica parâmetros e número de agentes, e gera relatório, gráficos e auditoria mensal. A auditoria evidencia ajustes artificiais de riqueza e fluxos sem contrapartida explícita: o motor atual **não demonstra consistência fluxo-estoque**.
+
+## Protótipo contábil experimental
+
+O módulo separado `src/models/sfc.py` testa identidades de uma economia fechada simplificada, sem reescalar ativos. As premissas, resultados, limitações e comandos para reproduzir duas hipóteses estão em [ESTUDO_SFC.md](ESTUDO_SFC.md). Ele ainda não substitui nem valida o motor original.

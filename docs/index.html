@@ -65,6 +65,24 @@
     .flow li span { display: flex; align-items: center; flex: 1; min-height: 65px; padding: 12px; background: #e6eee9; border-top: 2px solid var(--green); }
     .flow li:not(:last-child)::after { content: '→'; flex: 0 0 26px; color: var(--green); text-align: center; font-size: 18px; }
     .source-note { color: var(--muted); font-size: 13px; margin-top: 24px; }
+    .graph-section { padding: 48px 0 0; }
+    .graph-section h3 { margin: 0 0 8px; font-size: 20px; }
+    .graph-section p { color: var(--muted); font-size: 14px; max-width: 850px; }
+    .graph-frame { overflow-x: auto; margin: 22px 0 14px; padding: 20px; background: #fff; border: 1px solid var(--line); }
+    .mermaid { margin: 0; }
+    .mermaid[hidden] { display: none; }
+    .mermaid svg { display: block; width: 100%; min-width: 650px; max-width: 860px; height: auto; margin: 0 auto; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 7px; background: var(--legend-color); }
+    .story { display: grid; grid-template-columns: 220px 1fr; gap: 50px; padding: 28px 0; border-top: 1px solid var(--line); }
+    .story h3 { margin: 0; font-size: 16px; }
+    .story p { max-width: 760px; margin: 0 0 12px; color: var(--muted); }
+    .story p:last-child { margin-bottom: 0; }
+    .data-table { overflow-x: auto; margin: 26px 0; }
+    table { width: 100%; min-width: 670px; border-collapse: collapse; text-align: left; font-size: 14px; }
+    th, td { padding: 13px 15px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-size: 12px; }
+    .report-link { display: inline-block; margin-top: 10px; color: var(--green); font-weight: 700; }
     ul, ol { padding-left: 20px; }
     li { margin-bottom: 10px; }
     .next { background: #e6eee9; border-bottom: 0; }
@@ -76,7 +94,7 @@
       .wrap { width: min(100% - 32px, 1120px); }
       .nav { padding: 14px 0; align-items: flex-start; flex-direction: column; }
       nav { gap: 16px; }
-      .intro, .columns { grid-template-columns: 1fr; gap: 28px; }
+      .intro, .columns, .story { grid-template-columns: 1fr; gap: 28px; }
       .intro { padding: 46px 0 32px; }
       h1 { font-size: 44px; }
       h2 { font-size: 30px; }
@@ -99,7 +117,7 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#inicio"><span class="mark">H</span> HANK Brasil</a>
-      <nav aria-label="Navegação principal"><a href="#modelos">Modelos</a><a href="#hipoteses">Hipóteses</a><a href="#resultados">Resultados</a><a href="#metodo">Método</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
+      <nav aria-label="Navegação principal"><a href="#modelos">Modelos</a><a href="#hipoteses">Hipóteses</a><a href="#resultados">Resultados</a><a href="#contabilidade">Contabilidade</a><a href="#proximos-passos">Próximos passos</a><a href="https://github.com/CaioMar/hank_brasil">GitHub ↗</a></nav>
     </div>
   </header>
   <main id="inicio">
@@ -110,7 +128,7 @@
       </div>
       <div class="metrics" aria-label="Resultados em dezembro de 2018">
         <div class="metric"><span>Dívida observada / PIB</span><strong>75,27%</strong><small>Banco Central · dezembro de 2018</small></div>
-        <div class="metric"><span>Dívida simulada / PIB</span><strong>63,78%</strong><small>Modelo HANK Brasil</small></div>
+        <div class="metric"><span>Dívida simulada / PIB</span><strong>63,78%</strong><small>Protótipo original · dezembro de 2018</small></div>
         <div class="metric"><span>Diferença</span><strong>−11,49 p.p.</strong><small>Simulada menos observada</small></div>
       </div>
     </div>
@@ -138,6 +156,76 @@
         <div class="causal-path"><h3>Câmbio e preços</h3><ol class="flow" aria-label="Caminho hipotético dos juros até a inflação"><li><span>Taxa Selic</span></li><li><span>Fluxos financeiros e câmbio</span></li><li><span>Preços de bens importados</span></li><li><span>Inflação e atividade</span></li></ol><p>O câmbio responde também ao cenário externo e às expectativas. Reservas podem ajudar a lidar com volatilidade, mas não eliminam o risco cambial.</p></div>
       </div>
       <p class="source-note">Os caminhos são hipóteses de pesquisa, não conclusões causais. O protótipo ainda não fecha integralmente os fluxos entre os setores e não foi calibrado com microdados brasileiros.</p>
+      <div class="graph-section">
+        <h3>Grafo 1 · Transferências, atividade e dívida</h3>
+        <p>Tratamento é a política que queremos estudar; desfecho é o resultado que queremos medir. O grafo separa possíveis caminhos do efeito de condições anteriores que podem influenciar tanto a decisão política quanto o resultado.</p>
+        <div class="legend" aria-label="Legenda dos grafos"><span style="--legend-color:#d98950">Tratamento</span><span style="--legend-color:#7292ac">Condições anteriores</span><span style="--legend-color:#a1bbad">Mecanismos</span><span style="--legend-color:#14675a">Desfechos</span></div>
+        <div class="graph-frame"><pre class="mermaid" hidden role="img" aria-label="Grafo hipotético: condições anteriores influenciam transferências, PIB e dívida; transferências afetam renda, consumo e despesa, com possíveis efeitos no PIB, arrecadação e dívida.">
+flowchart TB
+  C["Condições econômicas anteriores"] --> T["Tratamento: transferências à base"]
+  C --> Y["PIB posterior"]
+  C --> D["Desfecho: dívida / PIB posterior"]
+  B["Dívida anterior"] --> T
+  B --> D
+  T --> R["Renda disponível"]
+  R --> K["Consumo"]
+  K --> Y
+  Y --> A["Arrecadação"]
+  A --> D
+  Y --> D
+  T --> G["Despesa pública"]
+  G --> D
+  classDef treatment fill:#f9e3ce,stroke:#b86435,color:#172f29;
+  classDef prior fill:#e6eef4,stroke:#7292ac,color:#172f29;
+  classDef mechanism fill:#e6eee9,stroke:#729984,color:#172f29;
+  classDef outcome fill:#d5eae2,stroke:#14675a,color:#172f29;
+  class T treatment;
+  class C,B prior;
+  class R,K,A,G mechanism;
+  class Y,D outcome;
+        </pre></div>
+        <p>O PIB pode ser um desfecho da transferência e, quando a pergunta é sobre dívida / PIB, também um mecanismo. Gasto e arrecadação são caminhos distintos; o sinal final não está determinado pelo desenho.</p>
+      </div>
+      <div class="graph-section">
+        <h3>Grafo 2 · Selic, preços e dívida</h3>
+        <p>Uma mudança de juros pode afetar tanto o custo da dívida quanto o câmbio e a atividade. Condições externas e inflação esperada podem influenciar a decisão de juros e os resultados posteriores.</p>
+        <div class="graph-frame"><pre class="mermaid" hidden role="img" aria-label="Grafo hipotético: condições anteriores influenciam Selic, câmbio e dívida; Selic pode afetar juros da dívida, câmbio, inflação, PIB e dívida.">
+flowchart TB
+  E["Condições externas e inflação esperada anteriores"] --> S["Tratamento: mudança da Selic"]
+  E --> X["Câmbio posterior"]
+  E --> D["Desfecho: dívida / PIB posterior"]
+  B["Dívida anterior"] --> S
+  B --> D
+  S --> J["Juros da dívida"]
+  J --> D
+  S --> X
+  X --> P["Inflação posterior"]
+  P --> Y["PIB nominal posterior"]
+  Y --> D
+  classDef treatment fill:#f9e3ce,stroke:#b86435,color:#172f29;
+  classDef prior fill:#e6eef4,stroke:#7292ac,color:#172f29;
+  classDef mechanism fill:#e6eee9,stroke:#729984,color:#172f29;
+  classDef outcome fill:#d5eae2,stroke:#14675a,color:#172f29;
+  class S treatment;
+  class E,B prior;
+  class J,X,P,Y mechanism;
+  class D outcome;
+        </pre></div>
+        <p>Os grafos são esquemas parciais, não equações estimadas nem garantias de causalidade. A escolha de variáveis de controle exige dados, ordem temporal e hipóteses adicionais; ajustar por um mecanismo após a política pode bloquear parte do efeito que se quer medir.</p>
+      </div>
+    </div></section>
+    <section id="contabilidade"><div class="wrap">
+      <div class="eyebrow">A investigação / Da comparação à auditoria</div>
+      <h2>Quando os números precisam fechar</h2>
+      <p class="concept-intro">A primeira comparação levantou uma pergunta anterior à previsão: para onde vai cada pagamento? A resposta mudou o caminho da pesquisa.</p>
+      <div class="story"><h3>01 · A primeira pista</h3><div><p>O motor original subestimou a dívida no fim de 2018 e superestimou no fim de 2025. Ao examinar os fluxos, encontramos uma normalização que forçava a riqueza das famílias a coincidir com a dívida, além de fluxos sem contrapartida explícita.</p><p>Igualar dois estoques dessa forma não demonstra que o dinheiro entrou e saiu corretamente.</p></div></div>
+      <div class="story"><h3>02 · Um novo experimento</h3><div><p>Construímos um protótipo separado de economia fechada: pagamentos de impostos, juros e transferências têm contrapartidas, e a poupança altera os ativos sem reescalá-los. Nesse exercício simplificado, as identidades agregadas fecham dentro do erro numérico.</p><p>Ele não substitui o motor anterior nem fecha os balanços de bancos, empresas e setor externo.</p></div></div>
+      <div class="story"><h3>03 · O que a hipótese muda</h3><div><p>Testamos o protótipo com e sem um gasto privado autônomo hipotético. Na versão ancorada, esse gasto é escolhido para que o PIB inicial seja 100; não é investimento observado. As duas versões usam Selic e IPCA realizados, portanto não são previsões em tempo real.</p></div></div>
+      <p class="source-note" id="descricao-tabela">Dívida / PIB no último mês e erro absoluto médio (EAM) da trajetória. População sintética de 100 mil agentes.</p>
+      <div class="data-table"><table aria-describedby="descricao-tabela"><thead><tr><th scope="col">Janela</th><th scope="col">Hipótese</th><th scope="col">Simulada</th><th scope="col">Observada</th><th scope="col">EAM</th><th scope="col">Ativos negativos no fim</th></tr></thead><tbody><tr><th scope="row">2015–2018</th><td>Sem ancoragem</td><td>234,89%</td><td>75,27%</td><td>100,60 p.p.</td><td>0,00%</td></tr><tr><th scope="row">2015–2018</th><td>Com ancoragem</td><td>75,39%</td><td>75,27%</td><td>3,99 p.p.</td><td>70,13%</td></tr><tr><th scope="row">2023–2025</th><td>Sem ancoragem</td><td>225,55%</td><td>78,64%</td><td>104,24 p.p.</td><td>0,00%</td></tr><tr><th scope="row">2023–2025</th><td>Com ancoragem</td><td>93,16%</td><td>78,64%</td><td>6,76 p.p.</td><td>64,41%</td></tr></tbody></table></div>
+      <div class="insight"><p><strong>A proximidade de um número não basta.</strong> Na versão ancorada, muitos agentes terminam com ativos líquidos negativos. Eles representam posições devedoras, não títulos públicos negativos; como não há limites de crédito, esse resultado evidencia uma lacuna do modelo. As diferenças também mostram quanto os resultados dependem da hipótese de gasto.</p></div>
+      <p class="source-note">O fechamento depende da igualdade inicial entre ativos financeiros líquidos agregados e dívida. O protótipo assume que dívidas entre famílias se compensam e são remuneradas à taxa da dívida pública. A distribuição e as propensões a consumir continuam sintéticas.</p>
+      <a class="report-link" href="https://github.com/CaioMar/hank_brasil/blob/main/ESTUDO_SFC.md">Estudo completo e reprodução ↗</a>
     </div></section>
     <section id="resultados"><div class="wrap">
       <div class="section-heading"><div><div class="eyebrow">01 / Comparação histórica</div><h2>O que os dados mostram</h2></div><p>O primeiro mês fixa as condições iniciais. A comparação cobre os 47 meses seguintes, de fevereiro de 2015 a dezembro de 2018.</p></div>
@@ -149,8 +237,24 @@
       <div><div class="eyebrow">02 / Abordagem</div><h2>O que foi feito</h2><p>O exercício inicializa o modelo com séries históricas do SGS para Selic, IPCA, dívida bruta, reservas internacionais e câmbio. A população é sintética e heterogênea, distribuída em dez grupos de renda.</p><p>A simulação de referência usa 100 mil agentes e a Selic efetivamente observada nos meses seguintes. Gastos, tributação adicional e uso de reservas não recebem choques nesse exercício.</p></div>
       <div><div class="eyebrow">03 / Leitura responsável</div><h2>O que ainda não sabemos</h2><ul><li>A trajetória usa Selic futura realizada e dados sujeitos a revisões: não é uma previsão fora da amostra em tempo real.</li><li>A inflação anualizada instantânea do modelo não é idêntica ao IPCA acumulado em 12 meses.</li><li>A auditoria encontrou ajustes artificiais na riqueza e fluxos sem contrapartida explícita. O modelo ainda não demonstra consistência fluxo-estoque.</li><li>As elasticidades e a distribuição dos agentes não foram estimadas com microdados brasileiros.</li><li>O exercício não estabelece causalidade nem demonstra superioridade sobre o Focus ou outros modelos.</li></ul></div>
     </div></section>
-    <section class="next" id="proximos-passos"><div class="wrap"><div class="eyebrow">04 / Agenda de pesquisa</div><h2>Próximos passos</h2><ol><li><strong>Auditar as contas.</strong><br>Examinar fluxos, balanços e os fatores associados ao erro da dívida.</li><li><strong>Calibrar com dados reais.</strong><br>Integrar microdados do IBGE e explicitar incertezas e hipóteses.</li><li><strong>Testar previsões.</strong><br>Comparar fora da amostra com o Focus e referências simples, em horizontes equivalentes.</li></ol></div></section>
+    <section class="next" id="proximos-passos"><div class="wrap"><div class="eyebrow">04 / Agenda de pesquisa</div><h2>Próximos passos</h2><ol><li><strong>Completar os balanços.</strong><br>Modelar empresas, bancos e crédito, com limites e contrapartidas explícitas.</li><li><strong>Calibrar com dados reais.</strong><br>Integrar microdados do IBGE e explicitar incertezas e hipóteses.</li><li><strong>Testar previsões.</strong><br>Comparar fora da amostra com o Focus e referências simples, em horizontes equivalentes.</li></ol></div></section>
   </main>
   <footer><div class="wrap"><span>HANK Brasil · pesquisa em desenvolvimento</span><span><a href="https://www.bcb.gov.br/estatisticas/sgs">Banco Central / SGS</a> &nbsp;·&nbsp; <a href="https://github.com/CaioMar/hank_brasil">Código e metodologia</a></span></div></footer>
+  <script type="module">
+    try {
+      const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+      mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: 'base', themeVariables: { fontFamily: 'DM Sans, sans-serif', fontSize: '14px', lineColor: '#53665e' }, flowchart: { htmlLabels: false, useMaxWidth: false } });
+      const diagrams = document.querySelectorAll('.mermaid');
+      diagrams.forEach((diagram) => { diagram.hidden = false; });
+      try {
+        await mermaid.run({ nodes: diagrams });
+      } catch (error) {
+        diagrams.forEach((diagram) => { diagram.hidden = true; });
+        throw error;
+      }
+    } catch (error) {
+      console.warn('Grafos indisponíveis; os caminhos causais continuam descritos em texto.', error);
+    }
+  </script>
 </body>
 </html>
