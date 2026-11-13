@@ -16,6 +16,24 @@ Uma possibilidade a investigar é uma regra de elegibilidade com corte preexiste
 
 Alternativamente, uma expansão escalonada poderia permitir diferenças em diferenças, mas exigiria datas e critérios de adoção verificáveis, grupos comparáveis, tendências prévias plausíveis e cuidado com antecipação e efeitos sobre famílias não tratadas. Nenhuma regra específica ou acesso a dados vinculados foi ainda confirmado. Antes de escolher um desenho, será necessário avaliar dados administrativos e pesquisas disponíveis, documentação, acesso seguro e proteção de dados pessoais.
 
+## Viabilidade: PNAD COVID-19 e auxílio em 2020
+
+Os [microdados mensais públicos do IBGE](https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Dados/) cobrem maio a novembro de 2020. O [dicionário de maio](https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_PNAD_COVID19/Microdados/Documentacao/Dicionario_PNAD_COVID_052020_20220621.xls) identifica D0051 como recebimento de auxílios emergenciais relacionados ao coronavírus e D0053 como somatório recebido pelos moradores. Essa pergunta não distingue necessariamente o Auxílio Emergencial federal de todos os demais auxílios relacionados à pandemia. A série não pode ser interpretada como beneficiários únicos de um programa específico.
+
+Para cada mês, selecionamos a pessoa responsável pelo domicílio (A001A = 01), verificamos unicidade por UF, UPA e V1008 e somamos o peso domiciliar V1032 dos registros com D0051 = 1. O denominador é a soma dos pesos com resposta conhecida (1 ou 2); respostas ausentes são contadas e excluídas do denominador. Os sete arquivos analisados não têm respostas ausentes entre responsáveis. Em maio, a estimativa é 26,30 milhões de domicílios e 38,67% dos domicílios com resposta conhecida; em novembro, 28,11 milhões e 40,96%. São estimativas pontuais, não valores administrativos nem contagens de pessoas.
+
+Em uma auditoria do arquivo de maio, cada domicílio tinha exatamente um responsável e D0051 não divergia entre os moradores. Isso não substitui a estimação de incerteza com estratos, unidades primárias de amostragem e o desenho apropriado. Não calculamos intervalos, nem concluímos que diferenças entre meses sejam estatisticamente significativas. Comparações mensais tampouco identificam o efeito do auxílio: a crise e outras políticas ocorreram simultaneamente, as condições de elegibilidade mudaram e composição e não resposta podem variar.
+
+**Decisão de viabilidade:** a PNAD COVID fornece recebimento amplo de auxílios e variáveis de trabalho e rendimento, mas não a despesa de consumo familiar necessária para estimar a PMC. Começa após o início da pandemia, e renda observada após a crise ou o auxílio não deve ser tratada automaticamente como renda anterior usada na elegibilidade. A POF 2017–2018 e a PNAD COVID não foram vinculadas em nível domiciliar. Os dados aqui obtidos não permitem estimar o contrafactual proposto.
+
+### Regra candidata e obstáculos
+
+A [redação original da Lei 13.982/2020, art. 2º](https://www2.camara.leg.br/legin/fed/lei/2020/lei-13982-2-abril-2020-789931-publicacaooriginal-160250-pl.html), previa R$ 600 mensais inicialmente por três meses para trabalhadores que satisfizessem requisitos cumulativos, incluindo idade, trabalho, benefícios recebidos e renda tributável em 2018. A condição de renda familiar era de até meio salário mínimo por pessoa **ou** até três salários mínimos no total. A lei limitava o recebimento a dois membros por família, previa duas cotas para mulher provedora de família monoparental e substituição do Bolsa Família quando mais vantajoso. O texto previa aferição via CadÚnico ou autodeclaração, conforme o caso. Essa é a redação original, não uma afirmação de que permaneceu inalterada em todos os meses ou de que a implementação seguiu perfeitamente a regra.
+
+A alternativa entre os dois limites é essencial: ultrapassar meio salário mínimo por pessoa não necessariamente interrompe a elegibilidade quando a renda total ainda está dentro de três salários mínimos. A definição legal de família pode diferir do domicílio observado; outras condições, valores por família, substituição de benefícios e regras posteriores também importam. Um corte somente seria candidato a uma descontinuidade se fosse efetivamente restritivo para o grupo estudado e se a elegibilidade e o recebimento mudassem ali. Não há demonstração disso nos dados disponíveis.
+
+O próximo passo é documentar a redação aplicável à data e sua implementação efetiva, e localizar dados que associem elegibilidade anterior, recebimento específico e consumo. Um corte só será usado depois de verificar que realmente determina o tratamento, que não há outras políticas simultâneas no mesmo limiar e que os dados possibilitam os testes previstos acima. Até lá, a hipótese causal permanece aberta.
+
 ## Critérios antes de simular políticas
 
 - Definir o contrafactual, os critérios de elegibilidade, a população e o horizonte antes da estimação.
@@ -29,6 +47,10 @@ Alternativamente, uma expansão escalonada poderia permitir diferenças em difer
 ```bash
 python -m src.etl.pof
 MPLBACKEND=Agg python -m src.relatorio.grafico_pof
+python -m src.etl.pnad_covid
+MPLBACKEND=Agg python -m src.relatorio.grafico_pnad_covid
 ```
 
 As tabelas oficiais podem ser consultadas em [SIDRA 6715](https://sidra.ibge.gov.br/tabela/6715) e [SIDRA 6974](https://sidra.ibge.gov.br/tabela/6974). O coletor consulta a API de agregados do IBGE e produz `docs/pof-2017-2018.csv`; o gráfico é salvo em `docs/grafico-pof.png`. O arquivo HTML contém valores textuais que devem ser conferidos novamente se a fonte for revisada.
+
+O segundo coletor baixa sete arquivos mensais do IBGE em memória, sem gravar os microdados no repositório, e gera `docs/pnad-covid-auxilios.csv` e `docs/grafico-pnad-covid.png`. Se as fontes forem revisadas, a tabela e a narrativa HTML também precisam ser conferidas.

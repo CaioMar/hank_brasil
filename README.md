@@ -29,7 +29,7 @@ MPLBACKEND=Agg python -m src.relatorio.grafico_contas_publicas
 
 O comando baixa as séries SGS 5793, 5760 e 5727 (necessidades de financiamento do setor público consolidado, sem desvalorização cambial, acumuladas em 12 meses como % do PIB), 432 (meta Selic) e 1207 (PIB anual em reais), além da tabela 2.1 da série histórica do Tesouro de julho de 2026 (receita líquida e despesa primária do governo central, em R$ milhões). Divide esses valores pelo PIB anual, verifica a identidade entre resultado nominal, primário e juros e gera os gráficos e o CSV em `docs/`. Os recortes e métodos do Tesouro e do Banco Central são diferentes e não devem ser somados. Séries históricas podem ser revisadas; a narrativa e a tabela HTML precisam ser atualizadas separadamente após regenerar os dados.
 
-A primeira análise descritiva das famílias usa tabelas agregadas da POF 2017–2018, não microdados nem estimativas causais. Fontes, reprodução e protocolo para uma futura avaliação de transferências estão em [ESTUDO_TRANSFERENCIAS.md](ESTUDO_TRANSFERENCIAS.md).
+A análise descritiva das famílias usa tabelas agregadas da POF 2017–2018 e microdados da PNAD COVID-19 de 2020. São fontes distintas e não vinculadas, sem estimativa causal nesta etapa. Fontes, reprodução e protocolo para uma futura avaliação de transferências estão em [ESTUDO_TRANSFERENCIAS.md](ESTUDO_TRANSFERENCIAS.md).
 
 ## Calibração e comparação histórica
 
