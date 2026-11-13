@@ -31,6 +31,8 @@ O comando baixa as séries SGS 5793, 5760 e 5727 (necessidades de financiamento 
 
 A análise descritiva usa tabelas agregadas da POF 2017–2018, microdados da PNAD COVID-19 de 2020 e um painel estadual da Pesquisa Mensal de Comércio. São fontes distintas e não vinculadas em nível familiar, sem estimativa causal nesta etapa. Fontes, reprodução e protocolo para uma futura avaliação de transferências estão em [ESTUDO_TRANSFERENCIAS.md](ESTUDO_TRANSFERENCIAS.md).
 
+Com o painel regional já gerado, `MPLBACKEND=Agg python -m src.relatorio.diagnostico_previo` reproduz o diagnóstico exploratório das tendências estaduais anteriores e da exposição observada em 2020. O coeficiente é descritivo, sem incerteza calculada; não identifica efeito do auxílio.
+
 ## Calibração e comparação histórica
 
 ```bash
