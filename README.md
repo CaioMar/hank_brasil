@@ -21,6 +21,14 @@ MPLBACKEND=Agg python src/relatorio/grafico_divida.py
 
 Os valores textuais da página descrevem a execução de 2015–2018 com 100 mil agentes e devem ser atualizados separadamente se a janela ou os resultados mudarem.
 
+Para reproduzir os gráficos e o CSV das contas públicas de 2015–2025:
+
+```bash
+MPLBACKEND=Agg python -m src.relatorio.grafico_contas_publicas
+```
+
+O comando baixa as séries SGS 5793, 5760 e 5727 (necessidades de financiamento do setor público consolidado, sem desvalorização cambial, acumuladas em 12 meses como % do PIB), 432 (meta Selic) e 1207 (PIB anual em reais), além da tabela 2.1 da série histórica do Tesouro de julho de 2026 (receita líquida e despesa primária do governo central, em R$ milhões). Divide esses valores pelo PIB anual, verifica a identidade entre resultado nominal, primário e juros e gera os gráficos e o CSV em `docs/`. Os recortes e métodos do Tesouro e do Banco Central são diferentes e não devem ser somados. Séries históricas podem ser revisadas; a narrativa e a tabela HTML precisam ser atualizadas separadamente após regenerar os dados.
+
 ## Calibração e comparação histórica
 
 ```bash

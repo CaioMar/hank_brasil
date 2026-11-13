@@ -2,3 +2,4 @@ numpy
 polars
 jax[cpu]
 matplotlib
+openpyxl
