@@ -8,6 +8,27 @@ Alimentação representa 23,76% das despesas de consumo na faixa até R$ 1.908 e
 
 Isso mostra diferenças na composição do orçamento, não na propensão marginal a consumir (PMC). As faixas possuem diferentes tamanhos familiares e características; a classificação inclui variação patrimonial e pode refletir decisões da própria família. Não se pode inferir que uma transferência geraria a mesma proporção de gastos, nem calcular uma PMC subtraindo as médias de duas faixas. Não estimamos efeitos causais, multiplicadores ou impactos fiscais, e não usamos os indicadores para calibrar automaticamente o modelo.
 
+## Microdados da POF: viabilidade de vínculo
+
+Baixamos os [microdados públicos de 2017–2018](https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Microdados/Dados_20230713.zip), o [dicionário](https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Microdados/Documentacao_20230713.zip), os [questionários](https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Microdados/Questionarios_20210423.zip) e a [memória de cálculo](https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Microdados/Memoria_de_Calculo_20230929.zip). O SHA-256 do ZIP de dados examinado é `f5b71f85452345e6e82caee15c70578c948981d8a8e5f99bd90ec60fac5b7932`.
+
+O registro `OUTROS_RENDIMENTOS` identifica pelo código `V9001` as categorias `5400101` (Bolsa Família/PETI) e `5400102` (Bolsa Família). O quadro 54 do questionário POF 5 pergunta sobre rendimentos habituais em um período de referência de **12 meses**, registrando o último valor mensal e o número de meses. O código combinado não distingue Bolsa Família de PETI. Esse é um registro de pesquisa, não uma verificação administrativa ou uma medida de cobertura em determinado mês.
+
+A chave `COD_UPA + NUM_DOM + NUM_UC` vincula os registros à **unidade de consumo** do arquivo `MORADOR`; a mesma unidade pode ter vários moradores e registros, e um domicílio pode ter mais de uma unidade. Para o denominador, contamos cada unidade presente em `MORADOR` uma vez; para o numerador, cada unidade com pelo menos um registro daqueles códigos, também uma vez. Usamos `PESO_FINAL`, verificamos pesos consistentes dentro de cada unidade e exigimos que os registros selecionados encontrem unidade correspondente. As datas de referência variam entre entrevistas. A ausência de registro não comprova, por si só, ausência de direito ou recebimento.
+
+Das **58.039 unidades de consumo** na amostra, **9.992** têm pelo menos um registro dessas categorias. A proporção ponderada é **14,03%**, equivalente a aproximadamente **9,69 milhões** de unidades sobre **69,02 milhões** estimadas. Entre 10.512 registros selecionados, 55 têm indicador de valor imputado; esse indicador refere-se ao valor, não prova imputação do recebimento. Não calculamos intervalos de confiança considerando estratos e UPAs, nem avaliamos a não resposta aos questionários. O resultado não deve ser comparado diretamente aos 38,67% de domicílios com auxílios ligados à COVID em maio de 2020: diferem período, unidade, pergunta e programas.
+
+Os arquivos de rendimentos e despesas usam chaves compatíveis, mas ainda não agregamos o consumo de cada unidade nem vinculamos essas despesas aos registros de benefício. Para fazê-lo, é preciso aplicar fatores de anualização e deflatores específicos, classificar itens com os [tradutores oficiais](https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Microdados/Tradutores_20230713.zip) e reconciliar os agregados com as tabelas publicadas pelo IBGE. Mesmo após esse vínculo, uma comparação entre unidades com e sem registros será descritiva: elegibilidade, renda, composição familiar e outros fatores diferem, e a POF não observa o contrafactual nem acompanha essas famílias antes e depois do benefício.
+
+Reprodução, com o ZIP oficial já baixado localmente (aproximadamente 146 MB):
+
+```bash
+python -m src.etl.pof_micro --arquivo /caminho/Dados_20230713.zip
+python -m unittest tests.test_pof_micro
+```
+
+O processamento mantém os registros individuais em memória e publica apenas [o resumo agregado](docs/pof-micro-beneficios.csv). Não estimamos valores de benefício ou consumo individual nesta etapa.
+
 ## Próxima pergunta causal
 
 Entre famílias elegíveis a uma transferência adicional bem definida, quanto aumenta o consumo nos meses seguintes por real recebido, em comparação com o que teria ocorrido sem o benefício? O tratamento deve especificar valor, duração e data de recebimento; os desfechos devem incluir consumo total e por categoria, além de endividamento e inflação enfrentada. A razão entre efeito no consumo e transferência recebida é uma PMC estimada para a população, prazo e política estudados, não uma constante universal.

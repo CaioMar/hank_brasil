@@ -33,6 +33,8 @@ A análise descritiva usa tabelas agregadas da POF 2017–2018, microdados da PN
 
 Com o painel regional já gerado, `MPLBACKEND=Agg python -m src.relatorio.diagnostico_previo` reproduz o diagnóstico exploratório das tendências estaduais anteriores e da exposição observada em 2020. O coeficiente é descritivo, sem incerteza calculada; não identifica efeito do auxílio.
 
+Para resumir registros de Bolsa Família/PETI nos microdados públicos da POF, baixe o ZIP oficial indicado em [ESTUDO_TRANSFERENCIAS.md](ESTUDO_TRANSFERENCIAS.md) e execute `python -m src.etl.pof_micro --arquivo /caminho/Dados_20230713.zip`. O arquivo gerado contém apenas estimativas agregadas por unidade de consumo; não mede efeito causal, recebimento em um mês específico nem cobertura administrativa.
+
 ## Calibração e comparação histórica
 
 ```bash
